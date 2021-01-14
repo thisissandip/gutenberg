@@ -391,7 +391,7 @@ export default function useInsertionPoint( ref ) {
 		ref.current.addEventListener( 'mousemove', onMouseMove );
 
 		return () => {
-			ref.current.removeEventListener( 'mousemove', onMouseMove );
+			ref.current?.removeEventListener( 'mousemove', onMouseMove );
 		};
 	}, [ enableMouseMove, onMouseMove ] );
 
