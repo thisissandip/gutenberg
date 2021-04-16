@@ -36,6 +36,7 @@ import * as html from './html';
 import * as mediaText from './media-text';
 import * as navigation from './navigation';
 import * as navigationLink from './navigation-link';
+import * as home from './home';
 import * as latestComments from './latest-comments';
 import * as latestPosts from './latest-posts';
 import * as legacyWidget from './legacy-widget';
@@ -215,6 +216,7 @@ export const __experimentalRegisterExperimentalCoreBlocks =
 				[
 					navigation,
 					navigationLink,
+					home,
 
 					// Register Legacy Widget block.
 					...( enableLegacyWidgetBlock ? [ legacyWidget ] : [] ),
