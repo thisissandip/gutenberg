@@ -192,6 +192,7 @@ The settings section has the following structure and default values:
       },
       "custom": { ... },
       "spacing": {
+        "customMargin": false, /* true to opt-in */
         "customPadding": false, /* true to opt-in, as in add_theme_support('custom-spacing') */
         "units": [ "px", "em", "rem", "vh", "vw" ], /* filter values, as in add_theme_support('custom-units', ... ) */
       },
@@ -374,6 +375,12 @@ Each block declares which style properties it exposes via the [block supports me
 				"text": "value"
 			},
 			"spacing": {
+				"margin": {
+					"top": "value",
+					"right": "value",
+					"bottom": "value",
+					"left": "value"
+				},
 				"padding": {
 					"top": "value",
 					"right": "value",
