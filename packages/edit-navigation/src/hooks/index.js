@@ -9,6 +9,7 @@ export const MenuIdContext = createContext();
 export const IsMenuNameControlFocusedContext = createContext();
 
 export { default as useMenuEntity } from './use-menu-entity';
+export { default as useMenuEntityProp } from './use-menu-entity-prop';
 export { default as useNavigationEditor } from './use-navigation-editor';
 export { default as useNavigationBlockEditor } from './use-navigation-block-editor';
 export { default as useMenuNotifications } from './use-menu-notifications';
