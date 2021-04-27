@@ -11,7 +11,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import { VisuallyHidden } from '../visually-hidden';
+import VisuallyHidden from '../../visually-hidden';
 import { VStack } from '../v-stack';
 import FontSizeControlSelect from './select';
 import FontSizeControlSlider from './slider';
