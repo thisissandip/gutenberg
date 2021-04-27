@@ -18,11 +18,11 @@ import { getScrollContainer } from '@wordpress/dom';
 /**
  * Internal dependencies
  */
-import BlockSelectionButton from './block-selection-button';
+import BlockSelectionButton from '../block-list/block-selection-button';
 import BlockContextualToolbar from './block-contextual-toolbar';
 import Inserter from '../inserter';
 import { store as blockEditorStore } from '../../store';
-import { __unstableUseBlockElement as useBlockElement } from './use-block-props/use-block-refs';
+import { __unstableUseBlockElement as useBlockElement } from '../block-list/use-block-props/use-block-refs';
 
 function selector( select ) {
 	const {
@@ -180,7 +180,7 @@ function BlockPopover( {
 			anchorRef={ anchorRef }
 			className="block-editor-block-list__block-popover"
 			__unstableStickyBoundaryElement={ stickyBoundaryElement }
-			__unstableSlotName="block-toolbar"
+			__unstableSlotName={ null }
 			__unstableBoundaryParent
 			// Observe movement for block animations (especially horizontal).
 			__unstableObserveElement={ node }
