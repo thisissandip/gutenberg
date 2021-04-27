@@ -133,6 +133,31 @@ function getSuggestionsQuery( type, kind ) {
 	}
 }
 
+/**
+ * Link control may sometimes return a type which we do not want to persist in block attributes.
+ *
+ * @param {string} type The type returned by the link control suggestion.
+ * @return {{}|{type: string}} empty object or object with type of string
+ */
+function getNavigationLinkType( type ) {
+	if ( ! type ) {
+		return {};
+	}
+	switch ( type ) {
+		// Different types of custom links should be saved as a "custom" type
+		// this is originally defined in packages/block-editor/src/components/link-control/settings-drawer.js
+		case 'URL':
+		case 'mailto':
+		case 'tel':
+		case 'internal':
+			return { type: 'custom' };
+		case 'post-format': //TODO is this a post_archive?
+			return {};
+		default:
+			return { type };
+	}
+}
+
 export default function NavigationLinkEdit( {
 	attributes,
 	isSelected,
@@ -552,15 +577,11 @@ export default function NavigationLinkEdit( {
 											return escape( normalizedURL );
 										} )(),
 										opensInNewTab: newOpensInNewTab,
-										id,
+										...( Number.isInteger( id ) && { id } ),
 										...( newKind && {
 											kind: newKind,
 										} ),
-										...( newType &&
-											newType !== 'URL' &&
-											newType !== 'post-format' && {
-												type: newType,
-											} ),
+										...getNavigationLinkType( newType ),
 									} )
 								}
 							/>
