@@ -18,7 +18,7 @@ import { getScrollContainer } from '@wordpress/dom';
 /**
  * Internal dependencies
  */
-import BlockSelectionButton from '../block-list/block-selection-button';
+import BlockSelectionButton from './block-selection-button';
 import BlockContextualToolbar from './block-contextual-toolbar';
 import Inserter from '../inserter';
 import { store as blockEditorStore } from '../../store';
