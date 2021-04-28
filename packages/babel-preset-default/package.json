@@ -24,7 +24,8 @@
 		"node": ">=12"
 	},
 	"files": [
-		"index.js"
+		"index.js",
+		"polyfill.js"
 	],
 	"main": "index.js",
 	"dependencies": {
@@ -38,9 +39,13 @@
 		"@wordpress/browserslist-config": "file:../browserslist-config",
 		"@wordpress/element": "file:../element",
 		"@wordpress/warning": "file:../warning",
-		"core-js": "^3.6.4"
+		"core-js": "^3.11.0",
+		"core-js-builder": "3.11.0"
 	},
 	"publishConfig": {
 		"access": "public"
+	},
+	"scripts": {
+		"build": "./bin/index.js"
 	}
 }
