@@ -78,7 +78,7 @@ export default function BlockParentSelector() {
 			ref={ nodeRef }
 			{ ...showMoversGestures }
 		>
-			<Slot name="parent-block-selector-unsaved-changes-indicator" />
+			<Slot name="block-unsaved-changes-indicator" />
 			<ToolbarButton
 				className="block-editor-block-parent-selector__button"
 				onClick={ () => selectBlock( firstParentClientId ) }

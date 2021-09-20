@@ -21,8 +21,7 @@ import {
 	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
 	__experimentalUseNoRecursiveRenders as useNoRecursiveRenders,
 	__experimentalBlockContentOverlay as BlockContentOverlay,
-	__experimentalParentBlockSelectorUnsavedChangesIndicator as ParentBlockSelectorUnsavedChangesIndicator,
-	__experimentalSelectedBlockUnsavedChangesIndicator as SelectedBlockUnsavedChangesIndicator,
+	__experimentalBlockUnsavedChangesIndicator as BlockUnsavedChangesIndicator,
 	InnerBlocks,
 	BlockControls,
 	InspectorControls,
@@ -57,36 +56,40 @@ export default function ReusableBlockEdit( { attributes: { ref }, clientId } ) {
 				'wp_block',
 				ref,
 			] );
+
+			const {
+				getSelectedBlockClientId,
+				getBlockRootClientId,
+				getBlockName,
+			} = select( blockEditorStore );
+
+			const selectedBlockClientId = getSelectedBlockClientId();
+			const _isRootBlockSelected = selectedBlockClientId === clientId;
+
+			const rootBlockClientId = getBlockRootClientId(
+				selectedBlockClientId
+			);
+
+			const _isChildSelected =
+				rootBlockClientId === clientId &&
+				getBlockName( rootBlockClientId ) === 'core/block';
+
 			const blockHasEdits = select( coreStore ).hasEditsForEntityRecord(
 				'postType',
 				'wp_block',
 				ref
 			);
+
 			return {
 				hasResolved: hasResolvedBlock,
 				isMissing: hasResolvedBlock && ! persistedBlock,
-				hasEdits: blockHasEdits,
+				hasEdits:
+					( blockHasEdits && _isRootBlockSelected ) ||
+					( _isChildSelected && blockHasEdits ),
 			};
 		},
 		[ ref, clientId ]
 	);
-
-	const { isChildSelected, isSelected } = useSelect( ( select ) => {
-		const { getBlockParents, getSelectedBlockClientId } = select(
-			blockEditorStore
-		);
-		const selectedBlockClientId = getSelectedBlockClientId();
-		const _isSelected = selectedBlockClientId === clientId;
-
-		const parents = getBlockParents( selectedBlockClientId );
-		const firstParentClientId = parents[ parents.length - 1 ];
-		const _isChildSelected = firstParentClientId === clientId;
-
-		return {
-			isChildSelected: _isChildSelected,
-			isSelected: _isSelected,
-		};
-	}, [] );
 
 	const {
 		__experimentalConvertBlockToStatic: convertBlockToStatic,
@@ -176,14 +179,7 @@ export default function ReusableBlockEdit( { attributes: { ref }, clientId } ) {
 	return (
 		<RecursionProvider>
 			<div { ...blockProps }>
-				{ isSelected && hasEdits && (
-					<SelectedBlockUnsavedChangesIndicator />
-				) }
-
-				{ isChildSelected && hasEdits && (
-					<ParentBlockSelectorUnsavedChangesIndicator />
-				) }
-
+				{ hasEdits && <BlockUnsavedChangesIndicator /> }
 				<BlockControls>
 					<ToolbarGroup>
 						<ToolbarButton
